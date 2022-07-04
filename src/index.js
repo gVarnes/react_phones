@@ -1,7 +1,14 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
-import './index.scss';
-import Application from './Application';
+import { store } from './redux/store';
+import { Provider } from 'react-redux';
 
-createRoot(document.querySelector('.root')).render(<Application />);
+import './index.scss';
+import App from './App';
+
+createRoot(document.querySelector('.root')).render(
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
