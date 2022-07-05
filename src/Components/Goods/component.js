@@ -34,7 +34,7 @@ const Goods = ({ cards }) => {
           <Grid
             item
             xs={12}
-            md={6}
+            md={4}
             key={id}
             sx={{
               maxHeight: '300px',

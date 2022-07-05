@@ -37,7 +37,7 @@ const App = () => {
     <div className="wrapper">
       <Header />
       <AppPaper />
-      <Container sx={{ mt: '20px' }}>
+      <Container sx={{ mt: '20px' }} maxWidth="xl">
         <main style={{ display: 'flex' }}>
           <NavForm />
           <Goods cards={cards} />
