@@ -1,17 +1,16 @@
 import React from 'react';
-import {
-  AppBar,
-  Button,
-  Toolbar,
-  Typography,
-  Container,
-  Box,
-} from '@mui/material';
+import { AppBar, Toolbar, Typography, Container, Box } from '@mui/material';
 import { ShoppingBasket } from '@mui/icons-material';
+import { styled } from '@mui/system';
 
 import { setIsBasketOpen } from '../../redux/slices/basketSlice';
 import { useDispatch } from 'react-redux';
+
 import AppButton from '../AppButton';
+
+const CustomizedTypography = styled(Typography)`
+  flex-grow: 1;
+`;
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -19,9 +18,9 @@ const Header = () => {
     <AppBar position="static">
       <Container>
         <Toolbar>
-          <Typography variant="h5" component="span" sx={{ flexGrow: 1 }}>
+          <CustomizedTypography variant="h5" component="span">
             react-phones
-          </Typography>
+          </CustomizedTypography>
           <Box>
             <AppButton
               color="inherit"
@@ -32,14 +31,6 @@ const Header = () => {
             >
               <ShoppingBasket></ShoppingBasket>
             </AppButton>
-            <Button
-              color="inherit"
-              onClick={() => {
-                dispatch(setIsBasketOpen(true));
-              }}
-            >
-              <ShoppingBasket></ShoppingBasket>
-            </Button>
           </Box>
         </Toolbar>
       </Container>
