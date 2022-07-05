@@ -4,9 +4,10 @@ import Basket from './Components/Basket/component';
 import Goods from './Components/Goods';
 import NavForm from './Components/NavForm/component';
 import Header from './Components/Header/component';
+import AppPaper from './Components/AppPaper/components';
 
 //material ui
-import { Box, Container } from '@mui/system';
+import { Container } from '@mui/system';
 
 //redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -35,11 +36,12 @@ const App = () => {
   return (
     <div className="wrapper">
       <Header />
+      <AppPaper />
       <Container sx={{ mt: '20px' }}>
-        <Box component="main" sx={{ display: 'flex' }}>
+        <main style={{ display: 'flex' }}>
           <NavForm />
           <Goods cards={cards} />
-        </Box>
+        </main>
       </Container>
       <Basket />
     </div>
