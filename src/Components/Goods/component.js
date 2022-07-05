@@ -1,7 +1,7 @@
 import { Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import React from 'react';
-import Btn from '../Button/component';
+import AppButton from '../AppButton';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setBasketElem } from '../../redux/slices/basketSlice';
@@ -77,13 +77,13 @@ const Goods = ({ cards }) => {
                 <Typography>Country: {country}</Typography>
                 <Typography>Memory: {memory}GB</Typography>
                 <Typography>OS: {os}</Typography>
-                <Btn
+                <AppButton
                   btnAction={() => {
                     dispatch(setBasketElem(card));
                   }}
                 >
                   <AddIcon></AddIcon>
-                </Btn>
+                </AppButton>
               </CardContent>
             </Card>
           </Grid>
