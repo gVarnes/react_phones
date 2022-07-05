@@ -7,7 +7,7 @@ import {
 } from '../../redux/slices/filterSlice';
 import { useDispatch } from 'react-redux/es/exports';
 
-import Btn from '../Button/component';
+import Btn from '../AppButton/component';
 
 const NavForm = () => {
   const brands = ['Samsung', 'Apple', 'Xiaomi', 'Sony', 'Motorola'];

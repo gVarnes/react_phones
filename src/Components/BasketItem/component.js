@@ -1,6 +1,6 @@
 import { CardMedia, Typography, Grid } from '@mui/material';
 import React from 'react';
-import Btn from '../Button/component';
+import Btn from '../AppButton/component';
 
 import { useDispatch } from 'react-redux/';
 import { removeElem } from '../../redux/slices/basketSlice';

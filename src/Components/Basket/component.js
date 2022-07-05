@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   Divider,
   Drawer,
@@ -16,11 +16,22 @@ import { setBasketElem, setIsBasketOpen } from '../../redux/slices/basketSlice';
 
 const Basket = () => {
   const { basket, isBasketOpen } = useSelector((state) => state.basket);
+  const isMounted = useRef(false);
 
   useEffect(() => {
-    const basketStorage = localStorage.getItem('basket');
-    basketStorage && dispatch(setBasketElem(basketStorage));
-  }, []);
+    if (isMounted.current) {
+      const json = JSON.stringify(basket);
+      console.log(json);
+      localStorage.setItem('basket', json);
+    }
+
+    isMounted.current = true;
+  }, [basket]);
+
+  // useEffect(() => {
+  //   const basketStorage = localStorage.getItem('basket');
+  //   basketStorage && dispatch(setBasketElem(basketStorage));
+  // }, []);
   const dispatch = useDispatch();
 
   const closeBasket = () => {
