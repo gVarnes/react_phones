@@ -4,7 +4,7 @@ import Basket from './Components/Basket/component';
 import Goods from './Components/Goods';
 import NavForm from './Components/NavForm/component';
 import Header from './Components/Header/component';
-import AppPaper from './Components/AppPaper/components';
+import AppPaper from './Components/AppPaper/component';
 
 //material ui
 import { Container } from '@mui/system';
@@ -38,7 +38,7 @@ const App = () => {
       <Header />
       <AppPaper />
       <Container sx={{ mt: '20px' }} maxWidth="xl">
-        <main style={{ display: 'flex' }}>
+        <main>
           <NavForm />
           <Goods cards={cards} />
         </main>

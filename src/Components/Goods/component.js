@@ -1,15 +1,52 @@
-import { Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
 import React from 'react';
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Grid,
+  Typography,
+} from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import { styled } from '@mui/system';
+
 import AppButton from '../AppButton';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setBasketElem } from '../../redux/slices/basketSlice';
 
 import './index.scss';
 
+const CustomizedCard = styled(Card)(
+  ({ theme }) => `
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(2, 1fr);
+    grid-template-areas:
+        "img card"
+        "img button";
+    align-items:center;
+    align-content: space-between;
+    padding: ${theme.spacing(2)};
+	`
+);
+const CustomizedCardMedia = styled(CardMedia)(
+  ({ theme }) => `
+    object-fit: contain;
+    height: 140px;
+    grid-area: img;
+	`
+);
+
+const CustomizedCardContent = styled(CardContent)(
+  ({ theme }) => `
+    padding: 0px;
+    grid-area: card;
+	`
+);
+
 const Goods = ({ cards }) => {
-  const { basket } = useSelector((state) => state.basket);
   const dispatch = useDispatch();
 
   // const addElementIntoBasket = () => dispatch(setBasketElem(card));
@@ -34,6 +71,7 @@ const Goods = ({ cards }) => {
           <Grid
             item
             xs={12}
+            sm={6}
             md={4}
             key={id}
             sx={{
@@ -41,42 +79,19 @@ const Goods = ({ cards }) => {
               marginBottom: '20px',
             }}
           >
-            <Card
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '100%',
-                padding: '10px',
-              }}
-            >
-              <CardMedia
-                component="img"
-                sx={{
-                  objectFit: 'contain',
-                  height: '140px',
-                }}
-                image={photo}
-                alt=""
-              />
-              <CardContent
-                sx={{
-                  padding: '0px',
-                  flexGrow: 1,
-                  flexShrink: 1,
-                  flexBasis: 'auto',
-                }}
-              >
+            <CustomizedCard>
+              <CustomizedCardMedia component="img" image={photo} alt="" />
+              <CustomizedCardContent>
                 <Typography variant="h5" component="h4" sx={{ flex: 0 }}>
                   {brand} - {model}
                 </Typography>
                 <Typography>{price} ₴</Typography>
-                <Typography>
-                  Color: <span className="color">{color}</span>
-                </Typography>
+                <Typography>Color: {color}</Typography>
                 <Typography>Country: {country}</Typography>
                 <Typography>Memory: {memory}GB</Typography>
                 <Typography>OS: {os}</Typography>
+              </CustomizedCardContent>
+              <CardActions sx={{ gridArea: 'button' }}>
                 <AppButton
                   btnAction={() => {
                     dispatch(setBasketElem(card));
@@ -84,8 +99,8 @@ const Goods = ({ cards }) => {
                 >
                   <AddIcon></AddIcon>
                 </AppButton>
-              </CardContent>
-            </Card>
+              </CardActions>
+            </CustomizedCard>
           </Grid>
         );
       })}
