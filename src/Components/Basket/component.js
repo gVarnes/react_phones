@@ -20,9 +20,6 @@ const Basket = () => {
   );
   const isMounted = useRef(false);
 
-  console.log(basket);
-  console.log(totalPrice);
-
   useEffect(() => {
     if (isMounted.current) {
       const json = JSON.stringify(basket);
@@ -63,6 +60,8 @@ const Basket = () => {
                 ></BasketItem>
               );
             })}
+            <Divider />
+            <ListItem>Total price: {totalPrice}</ListItem>
           </Paper>
         )}
       </List>

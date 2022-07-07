@@ -50,13 +50,11 @@ const CustomizedCardContent = styled(CardContent)(
 const Goods = ({ cards }) => {
   const dispatch = useDispatch();
 
-  // const addElementIntoBasket = () => dispatch(setBasketElem(card));
-
-  const onClickAdd = ({ ...item }) => {
-    const basketItem = {
-      id,
-    };
-  };
+  // const onClickAdd = ({ ...item }) => {
+  //   const basketItem = {
+  //     id,
+  //   };
+  // };
 
   return (
     <Container sx={{ mt: '20px' }} maxWidth="xl">
@@ -99,7 +97,7 @@ const Goods = ({ cards }) => {
                   <Typography>{price} ₴</Typography>
                   <Typography>Color: {color}</Typography>
                   <Typography>Country: {country}</Typography>
-                  <Typography>Memory: {memory}GB</Typography>
+                  <Typography>Memory: {memory} GB</Typography>
                   <Typography>OS: {os}</Typography>
                 </CustomizedCardContent>
                 <CardActions sx={{ gridArea: 'button' }}>

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { calcTotalPrice } from '../../utils/calcTotalPrice';
 
 const initialState = {
   basket: JSON.parse(localStorage.getItem('basket')) || [],
@@ -24,13 +25,13 @@ export const basketSlice = createSlice({
           count: 1,
         });
       }
-      state.totalPrice = state.basket.reduce(
-        (sum, obj) => obj.price * obj.count + sum,
-        0
-      );
+
+      calcTotalPrice(state);
     },
     removeItem: (state, action) => {
       state.basket = state.basket.filter((item) => item.id !== action.payload);
+
+      calcTotalPrice(state);
     },
   },
 });
