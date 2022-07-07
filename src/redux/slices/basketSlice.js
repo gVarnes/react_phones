@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { calcTotalPrice } from '../../utils/calcTotalPrice';
+import { findBasketItem } from '../../utils/findBasketItem';
+import { removeBasketItem } from '../../utils/removeBasketItem';
 
 const initialState = {
   basket: JSON.parse(localStorage.getItem('basket')) || [],
@@ -29,14 +31,33 @@ export const basketSlice = createSlice({
       calcTotalPrice(state);
     },
     removeItem: (state, action) => {
-      state.basket = state.basket.filter((item) => item.id !== action.payload);
+      removeBasketItem(state, action);
+      calcTotalPrice(state);
+    },
+    reduceCount: (state, action) => {
+      const findItem = findBasketItem(state, action);
 
+      if (findItem.count > 1) {
+        findItem.count--;
+      } else {
+        removeBasketItem(state, action);
+      }
+      calcTotalPrice(state);
+    },
+    increaseCount: (state, action) => {
+      const findItem = findBasketItem(state, action);
+      findItem.count++;
       calcTotalPrice(state);
     },
   },
 });
 
-export const { setBasketItem, setIsBasketOpen, removeItem } =
-  basketSlice.actions;
+export const {
+  setBasketItem,
+  setIsBasketOpen,
+  removeItem,
+  reduceCount,
+  increaseCount,
+} = basketSlice.actions;
 
 export default basketSlice.reducer;

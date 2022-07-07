@@ -9,10 +9,11 @@ import {
   ListItemText,
 } from '@mui/material';
 import { ShoppingBasket } from '@mui/icons-material';
-import BasketItem from '../BasketItem/component';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { setIsBasketOpen } from '../../redux/slices/basketSlice';
+
+import BasketItem from '../BasketItem/component';
 
 const Basket = () => {
   const { basket, isBasketOpen, totalPrice } = useSelector(
@@ -37,7 +38,14 @@ const Basket = () => {
 
   return (
     <Drawer anchor="right" open={isBasketOpen} onClose={closeBasket} sx={{}}>
-      <List sx={{ maxWidth: '380px', marginTop: '60px' }}>
+      <List
+        sx={{
+          maxWidth: '380px',
+          marginTop: '60px',
+          padding: '10px',
+          paddingTop: '0px',
+        }}
+      >
         <ListItem>
           <ListItemIcon>
             <ShoppingBasket />
@@ -49,16 +57,8 @@ const Basket = () => {
           <ListItem>Shopping cart is empty</ListItem>
         ) : (
           <Paper>
-            {basket.map(({ id, brand, price, photo }) => {
-              return (
-                <BasketItem
-                  key={id}
-                  id={id}
-                  brand={brand}
-                  price={price}
-                  photo={photo}
-                ></BasketItem>
-              );
+            {basket.map((card) => {
+              return <BasketItem item={card} key={card.id}></BasketItem>;
             })}
             <Divider />
             <ListItem>Total price: {totalPrice}</ListItem>
