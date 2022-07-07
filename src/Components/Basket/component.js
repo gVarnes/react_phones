@@ -12,11 +12,16 @@ import { ShoppingBasket } from '@mui/icons-material';
 import BasketItem from '../BasketItem/component';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setBasketElem, setIsBasketOpen } from '../../redux/slices/basketSlice';
+import { setIsBasketOpen } from '../../redux/slices/basketSlice';
 
 const Basket = () => {
-  const { basket, isBasketOpen } = useSelector((state) => state.basket);
+  const { basket, isBasketOpen, totalPrice } = useSelector(
+    (state) => state.basket
+  );
   const isMounted = useRef(false);
+
+  console.log(basket);
+  console.log(totalPrice);
 
   useEffect(() => {
     if (isMounted.current) {
@@ -27,10 +32,6 @@ const Basket = () => {
     isMounted.current = true;
   }, [basket]);
 
-  // useEffect(() => {
-  //   const basketStorage = localStorage.getItem('basket');
-  //   basketStorage && dispatch(setBasketElem(basketStorage));
-  // }, []);
   const dispatch = useDispatch();
 
   const closeBasket = () => {

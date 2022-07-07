@@ -3,13 +3,13 @@ import React from 'react';
 import Btn from '../AppButton/component';
 
 import { useDispatch } from 'react-redux/';
-import { removeElem } from '../../redux/slices/basketSlice';
+import { removeItem } from '../../redux/slices/basketSlice';
 
 const BasketItem = ({ id, brand, price, photo }) => {
   const dispatch = useDispatch();
 
   const removeElementFromBasket = () => {
-    dispatch(removeElem(id));
+    dispatch(removeItem(id));
   };
 
   return (

@@ -13,11 +13,10 @@ import { styled, Container } from '@mui/system';
 import AppButton from '../AppButton';
 
 import { useDispatch } from 'react-redux';
-import { setBasketElem } from '../../redux/slices/basketSlice';
+import { setBasketItem } from '../../redux/slices/basketSlice';
+import { setIsFilterMenuOpen } from '../../redux/slices/filterMenuSlice';
 
 import './index.scss';
-import { setIsNavFiltersOpen } from '../../redux/slices/filterMenuSlice';
-import { setIsFilterMenuOpen } from '../../redux/slices/filterMenuSlice';
 
 const CustomizedCard = styled(Card)(
   ({ theme }) => `
@@ -52,6 +51,12 @@ const Goods = ({ cards }) => {
   const dispatch = useDispatch();
 
   // const addElementIntoBasket = () => dispatch(setBasketElem(card));
+
+  const onClickAdd = ({ ...item }) => {
+    const basketItem = {
+      id,
+    };
+  };
 
   return (
     <Container sx={{ mt: '20px' }} maxWidth="xl">
@@ -100,7 +105,21 @@ const Goods = ({ cards }) => {
                 <CardActions sx={{ gridArea: 'button' }}>
                   <AppButton
                     btnAction={() => {
-                      dispatch(setBasketElem(card));
+                      dispatch(
+                        setBasketItem({
+                          id,
+                          isStoredInFacility,
+                          photo,
+                          brand,
+                          model,
+                          haveDiscount,
+                          price,
+                          color,
+                          country,
+                          os,
+                          memory,
+                        })
+                      );
                     }}
                   >
                     <AddIcon></AddIcon>
