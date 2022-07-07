@@ -11,6 +11,8 @@ import { Container } from '@mui/system';
 
 //redux
 import { useSelector, useDispatch } from 'react-redux';
+import { Box } from '@mui/material';
+import AppButton from './Components/AppButton';
 
 const App = () => {
   const [cards, setCard] = useState([]);
@@ -37,12 +39,10 @@ const App = () => {
     <div className="wrapper">
       <Header />
       <AppPaper />
-      <Container sx={{ mt: '20px' }} maxWidth="xl">
-        <main>
-          <NavForm />
-          <Goods cards={cards} />
-        </main>
-      </Container>
+      <main>
+        <Goods cards={cards} />
+      </main>
+      <NavForm />
       <Basket />
     </div>
   );

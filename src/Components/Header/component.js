@@ -4,7 +4,7 @@ import { ShoppingBasket } from '@mui/icons-material';
 import { styled } from '@mui/system';
 
 import { setIsBasketOpen } from '../../redux/slices/basketSlice';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import AppButton from '../AppButton';
 
@@ -13,9 +13,14 @@ const CustomizedTypography = styled(Typography)`
 `;
 
 const Header = () => {
+  const { isBasketOpen } = useSelector((state) => state.basket);
   const dispatch = useDispatch();
+
   return (
-    <AppBar position="static">
+    <AppBar
+      position="fixed"
+      sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+    >
       <Container>
         <Toolbar>
           <CustomizedTypography variant="h5" component="span">
@@ -26,7 +31,7 @@ const Header = () => {
               color="inherit"
               variant="text"
               btnAction={() => {
-                dispatch(setIsBasketOpen(true));
+                dispatch(setIsBasketOpen(!isBasketOpen));
               }}
             >
               <ShoppingBasket></ShoppingBasket>

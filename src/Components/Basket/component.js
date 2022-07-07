@@ -38,8 +38,8 @@ const Basket = () => {
   };
 
   return (
-    <Drawer anchor="right" open={isBasketOpen} onClose={closeBasket}>
-      <List sx={{ maxWidth: '380px' }}>
+    <Drawer anchor="right" open={isBasketOpen} onClose={closeBasket} sx={{}}>
+      <List sx={{ maxWidth: '380px', marginTop: '60px' }}>
         <ListItem>
           <ListItemIcon>
             <ShoppingBasket />
