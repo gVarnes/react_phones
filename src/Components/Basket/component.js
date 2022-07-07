@@ -21,7 +21,6 @@ const Basket = () => {
   useEffect(() => {
     if (isMounted.current) {
       const json = JSON.stringify(basket);
-      console.log(json);
       localStorage.setItem('basket', json);
     }
 
@@ -40,7 +39,7 @@ const Basket = () => {
 
   return (
     <Drawer anchor="right" open={isBasketOpen} onClose={closeBasket}>
-      <List sx={{ width: '400px' }}>
+      <List sx={{ maxWidth: '380px' }}>
         <ListItem>
           <ListItemIcon>
             <ShoppingBasket />
