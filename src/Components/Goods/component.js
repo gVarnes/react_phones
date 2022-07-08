@@ -97,7 +97,7 @@ const Goods = ({ cards }) => {
                   <Typography>{price} ₴</Typography>
                   <Typography>Color: {color}</Typography>
                   <Typography>Country: {country}</Typography>
-                  <Typography>Memory: {memory} GB</Typography>
+                  <Typography>Memory: {memory}GB</Typography>
                   <Typography>OS: {os}</Typography>
                 </CustomizedCardContent>
                 <CardActions sx={{ gridArea: 'button' }}>

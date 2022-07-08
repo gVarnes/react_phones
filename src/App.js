@@ -6,18 +6,16 @@ import NavForm from './Components/NavForm/component';
 import Header from './Components/Header/component';
 import AppPaper from './Components/AppPaper/component';
 
+import { Routes, Route, Link } from 'react-router-dom';
+
 //material ui
-import { Container } from '@mui/system';
 
 //redux
-import { useSelector, useDispatch } from 'react-redux';
-import { Box } from '@mui/material';
-import AppButton from './Components/AppButton';
+import { useSelector } from 'react-redux';
+import Laptops from './Components/Laptops/component';
 
 const App = () => {
   const [cards, setCard] = useState([]);
-
-  const dispatch = useDispatch();
 
   const { filterByCondition, sortByCondition } = useSelector(
     (state) => state.filter
@@ -40,7 +38,13 @@ const App = () => {
       <Header />
       <AppPaper />
       <main>
-        <Goods cards={cards} />
+        <Link to="/phones">phones</Link>
+        <Link to="/laptops">laptops</Link>
+        <Routes>
+          <Route path="/phones" element={<Goods cards={cards} />} />
+          <Route path="/laptops" element={<Laptops />} />
+        </Routes>
+        {/* <Goods cards={cards} /> */}
       </main>
       <NavForm />
       <Basket />

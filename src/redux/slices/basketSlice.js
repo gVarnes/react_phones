@@ -44,7 +44,7 @@ export const basketSlice = createSlice({
       }
       calcTotalPrice(state);
     },
-    increaseCount: (state, action) => {
+    decreaseCount: (state, action) => {
       const findItem = findBasketItem(state, action);
       findItem.count++;
       calcTotalPrice(state);
@@ -57,7 +57,7 @@ export const {
   setIsBasketOpen,
   removeItem,
   reduceCount,
-  increaseCount,
+  decreaseCount,
 } = basketSlice.actions;
 
 export default basketSlice.reducer;

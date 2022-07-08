@@ -45,6 +45,7 @@ module.exports = {
     static: {
       directory: join(__dirname, 'src'),
     },
+    historyApiFallback: true,
   },
   devtool: 'inline-source-map',
 };

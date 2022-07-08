@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux/';
 import {
   reduceCount,
   removeItem,
-  increaseCount,
+  decreaseCount,
 } from '../../redux/slices/basketSlice';
 
 import AppButton from '../AppButton/component';
@@ -22,7 +22,7 @@ const BasketItem = ({ item: { id, brand, price, photo, count } }) => {
     dispatch(reduceCount(id));
   };
   const increaseElement = () => {
-    dispatch(increaseCount(id));
+    dispatch(decreaseCount(id));
   };
 
   return (
