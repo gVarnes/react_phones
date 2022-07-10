@@ -10,7 +10,9 @@ import { Container } from '@mui/system';
 import { useSelector, useDispatch } from 'react-redux';
 import { setIsFilterMenuOpen } from '../../redux/slices/filterMenuSlice';
 
-const Laptops = () => {
+import './index.scss';
+
+const Phones = () => {
   const [cards, setCard] = useState([]);
 
   const dispatch = useDispatch();
@@ -21,7 +23,7 @@ const Laptops = () => {
 
   useEffect(() => {
     fetch(
-      `https://62bc03efeff39ad5ee1a123a.mockapi.io/laptops?${
+      `https://62bc03efeff39ad5ee1a123a.mockapi.io/phones?${
         filterByCondition && `filter=${filterByCondition}`
       }&${sortByCondition && `sortBy=price&order=${sortByCondition}`}`
     )
@@ -45,4 +47,4 @@ const Laptops = () => {
   );
 };
 
-export default Laptops;
+export default Phones;

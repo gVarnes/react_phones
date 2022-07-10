@@ -13,6 +13,7 @@ const CustomizedPaper = styled(Paper)(
 		background-position: center;
 		padding-bottom: ${theme.spacing('10%')};
 		color: #fff;
+    margin-top: 64px;
 	`
 );
 

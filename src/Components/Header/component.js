@@ -6,6 +6,8 @@ import { styled } from '@mui/system';
 import { setIsBasketOpen } from '../../redux/slices/basketSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { Link } from 'react-router-dom';
+
 import AppButton from '../AppButton';
 
 const CustomizedTypography = styled(Typography)`
@@ -24,7 +26,9 @@ const Header = () => {
       <Container>
         <Toolbar>
           <CustomizedTypography variant="h5" component="span">
-            react-phones
+            <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+              react-phones
+            </Link>
           </CustomizedTypography>
           <Box>
             <AppButton
