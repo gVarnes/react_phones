@@ -11,9 +11,9 @@ const ProductsNavigation = () => {
       <Grid container spacing={2} sx={{ marginTop: '30px' }}>
         {ROUTES.map(({ PATH, DESCRIPTION, IMAGE_URL }) => {
           return (
-            <Grid item md={4} sm={6} xs={12} key={PATH}>
+            <Grid item md={4} sm={6} xs={12} key={PATH} sx={{}}>
               <Link to={PATH} style={{ textDecoration: 'none' }}>
-                <Card sx={{ maxWidth: '33,333%' }}>
+                <Card sx={{ maxWidth: '33,333%', paddingTop: '20px' }}>
                   <CardMedia
                     sx={{
                       width: '100%',

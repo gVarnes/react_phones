@@ -30,7 +30,6 @@ const App = () => {
           <Route path="/watches" element={<Watches />} />
         </Routes>
       </main>
-      <NavForm />
       <Basket />
     </div>
   );

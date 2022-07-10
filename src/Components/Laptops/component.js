@@ -9,9 +9,13 @@ import { Container } from '@mui/system';
 //redux
 import { useSelector, useDispatch } from 'react-redux';
 import { setIsFilterMenuOpen } from '../../redux/slices/filterMenuSlice';
+import NavForm from '../NavForm/component';
+import { addFilters } from '../../utils/addFilters';
 
 const Laptops = () => {
   const [cards, setCard] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [colors, setColors] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -31,6 +35,11 @@ const Laptops = () => {
       });
   }, [filterByCondition, sortByCondition]);
 
+  useEffect(() => {
+    setBrands(addFilters(cards, 'brand'));
+    setColors(addFilters(cards, 'color'));
+  }, [cards]);
+
   return (
     <Container sx={{ mt: '20px' }} maxWidth="xl">
       <AppButton btnAction={() => dispatch(setIsFilterMenuOpen(true))}>
@@ -41,6 +50,7 @@ const Laptops = () => {
           return <GoodItem card={card} key={card.id} />;
         })}
       </Grid>
+      <NavForm brands={brands} colors={colors} />
     </Container>
   );
 };

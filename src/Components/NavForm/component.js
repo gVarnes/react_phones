@@ -32,20 +32,7 @@ const CustomizedDrawer = styled(Drawer)`
   }
 `;
 
-const NavForm = () => {
-  const brands = ['Samsung', 'Apple', 'Xiaomi', 'Sony', 'Motorola'];
-  const colors = [
-    'white',
-    'black',
-    'purple',
-    'grey',
-    'blue',
-    'gold',
-    'green',
-    'red',
-    'pink',
-  ];
-
+const NavForm = ({ brands, colors }) => {
   const { isFilterMenuOpen } = useSelector((state) => state.filtersMenu);
   const dispatch = useDispatch();
 
