@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import AppButton from '../AppButton';
 import GoodItem from '../GoodItem/component';
+import NavForm from '../NavForm/component';
+import GoodsSkeleton from '../GoodsSkeleton/component';
 
 //material ui
 import { Grid } from '@mui/material';
@@ -11,12 +13,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setIsFilterMenuOpen } from '../../redux/slices/filterMenuSlice';
 
 import { addFilters } from '../../utils/addFilters';
-import NavForm from '../NavForm/component';
 
 const Phones = () => {
   const [cards, setCard] = useState([]);
   const [brands, setBrands] = useState([]);
   const [colors, setColors] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -33,6 +35,7 @@ const Phones = () => {
       .then((res) => res.json())
       .then((items) => {
         setCard(items);
+        setIsLoading(false);
       });
   }, [filterByCondition, sortByCondition]);
 
@@ -47,9 +50,11 @@ const Phones = () => {
         Filters
       </AppButton>
       <Grid container spacing={2}>
-        {cards.map((card) => {
-          return <GoodItem card={card} key={card.id} />;
-        })}
+        {isLoading
+          ? [...new Array(9)].map((item, index) => (
+              <GoodsSkeleton key={index} />
+            ))
+          : cards.map((card) => <GoodItem card={card} key={card.id} />)}
       </Grid>
       <NavForm brands={brands} colors={colors} />
     </Container>

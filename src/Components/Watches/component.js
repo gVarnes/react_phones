@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AppButton from '../AppButton';
 import GoodItem from '../GoodItem/component';
+import GoodsSkeleton from '../GoodsSkeleton/component';
 
 //material ui
 import { Grid } from '@mui/material';
@@ -17,6 +18,7 @@ const Watches = () => {
   const [cards, setCard] = useState([]);
   const [brands, setBrands] = useState([]);
   const [colors, setColors] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -33,6 +35,7 @@ const Watches = () => {
       .then((res) => res.json())
       .then((items) => {
         setCard(items);
+        setIsLoading(false);
       });
   }, [filterByCondition, sortByCondition]);
 
@@ -41,15 +44,21 @@ const Watches = () => {
     setColors(addFilters(cards, 'color'));
   }, [cards]);
 
+  useEffect(() => {
+    console.log('1');
+  }, []);
+
   return (
     <Container sx={{ mt: '20px' }} maxWidth="xl">
       <AppButton btnAction={() => dispatch(setIsFilterMenuOpen(true))}>
         Filters
       </AppButton>
       <Grid container spacing={2}>
-        {cards.map((card) => {
-          return <GoodItem card={card} key={card.id} />;
-        })}
+        {isLoading
+          ? [...new Array(9)].map((item, index) => (
+              <GoodsSkeleton key={index} />
+            ))
+          : cards.map((card) => <GoodItem card={card} key={card.id} />)}
       </Grid>
 
       <NavForm brands={brands} colors={colors} />
