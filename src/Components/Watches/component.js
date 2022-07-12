@@ -44,10 +44,6 @@ const Watches = () => {
     setColors(addFilters(cards, 'color'));
   }, [cards]);
 
-  useEffect(() => {
-    console.log('1');
-  }, []);
-
   return (
     <Container sx={{ mt: '20px' }} maxWidth="xl">
       <AppButton btnAction={() => dispatch(setIsFilterMenuOpen(true))}>
