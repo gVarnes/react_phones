@@ -1,17 +1,10 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
+import { TextField } from '@mui/material';
 
-const Input = ({ type, name, field, form }) => {
+const Input = forwardRef((props, ref) => {
   return (
-    <>
-      <input
-        type={type}
-        name={name}
-        onChange={(e) => {
-          console.log(e.target.value);
-        }}
-      ></input>
-    </>
+    <TextField fullWidth {...props} inputRef={ref} margin="normal"></TextField>
   );
-};
+});
 
 export default Input;
