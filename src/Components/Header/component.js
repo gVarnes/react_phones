@@ -9,7 +9,7 @@ import { setIsBasketOpen } from '../../redux/slices/basketSlice';
 import { setThemeMode } from '../../redux/slices/themeModeSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import AppButton from '../AppButton';
 import { useEffect } from 'react';
@@ -22,6 +22,7 @@ const Header = () => {
   const { isBasketOpen } = useSelector((state) => state.basket);
   const { mode } = useSelector((state) => state.themeMode);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.setItem('theme', mode);
@@ -58,6 +59,7 @@ const Header = () => {
             >
               <ShoppingBasket></ShoppingBasket>
             </AppButton>
+            <AppButton btnAction={() => navigate('/login')}>Login</AppButton>
           </Box>
         </Toolbar>
       </Container>

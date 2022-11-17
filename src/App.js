@@ -2,14 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import Basket from './Components/Basket/component';
 import Header from './Components/Header/component';
-import AppPaper from './Components/AppPaper/component';
-import Phones from './Components/Phones';
-import Laptops from './Components/Laptops/component';
-import ProductsNavigation from './Components/ProductsNavigation/components';
-import Earphones from './Components/Earphones/component';
-import Watches from './Components/Watches/component';
-
-import { Routes, Route } from 'react-router-dom';
 
 //material ui
 import { Box } from '@mui/system';
@@ -19,9 +11,11 @@ import { useSelector } from 'react-redux/es/exports';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import { cyan, grey, teal } from '@mui/material/colors';
+import Routing from './config/Routing';
 
 const App = () => {
-  const { mode } = useSelector((state) => state.themeMode);
+  let { mode } = useSelector((state) => state.themeMode);
+
   const theme = createTheme({
     palette: {
       mode,
@@ -37,12 +31,10 @@ const App = () => {
             },
           }
         : {
-            mode: 'dark',
-            primary: {
-              main: teal[200],
-            },
             // palette values for dark mode
-            primary: cyan,
+            primary: {
+              main: cyan[800],
+            },
             divider: cyan[200],
           }),
     },
@@ -51,19 +43,20 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Box
-        sx={{ backgroundColor: theme.palette.background.default }}
+        sx={{
+          backgroundColor: theme.palette.background.default,
+          minHeight: '100vh',
+        }}
         className="wrapper"
       >
         <Header />
-        <AppPaper />
-        <Box>
-          <Routes>
-            <Route path="/" element={<ProductsNavigation />} />
-            <Route path="/phones" element={<Phones />} />
-            <Route path="/laptops" element={<Laptops />} />
-            <Route path="/earphones" element={<Earphones />} />
-            <Route path="/watches" element={<Watches />} />
-          </Routes>
+        {/* <AppPaper /> */}
+        <Box
+          sx={{
+            padding: '60px 0',
+          }}
+        >
+          <Routing />
         </Box>
         <Basket />
       </Box>
