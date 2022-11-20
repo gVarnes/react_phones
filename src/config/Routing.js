@@ -10,10 +10,10 @@ import Shop from '../pages/Shop';
 import { authRoutes, publicRoutes } from '../routes';
 
 import { useSelector, useDispatch } from 'react-redux';
+import ShopNew from '../pages/ShopNew';
 
 const Routing = () => {
   const { isAuth } = useSelector((state) => state.user);
-  console.log(isAuth);
   return (
     <Routes>
       <Route path="/phones" element={<Phones />} />
@@ -27,7 +27,8 @@ const Routing = () => {
       {publicRoutes.map(({ path, Component }) => (
         <Route key={path} path={path} element={<Component />} exact />
       ))}
-      <Route path="*" element={<Shop />} />
+      {/* <Route path="*" element={<Shop />} /> */}
+      {/* <Route path="*" element={<ShopNew />} /> */}
     </Routes>
   );
 };

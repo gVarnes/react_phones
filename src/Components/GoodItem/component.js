@@ -3,7 +3,9 @@ import AppButton from '../AppButton';
 
 //material ui
 import {
+  Box,
   Card,
+  CardActionArea,
   CardActions,
   CardContent,
   CardMedia,
@@ -16,19 +18,32 @@ import { styled } from '@mui/system';
 //redux
 import { useDispatch } from 'react-redux';
 import { setBasketItem } from '../../redux/slices/basketSlice';
+import { useNavigate } from 'react-router-dom';
+
+// const CustomizedCard = styled(Card)(
+//   ({ theme }) => `
+// 	  height: 100%;
+// 	  display: grid;
+// 	  grid-template-columns: repeat(2, 1fr);
+// 	  grid-auto-rows: minmax(2, 1fr);
+// 	  grid-template-areas:
+// 			"img card"
+// 			"img button";
+// 	  align-items:center;
+// 	  align-content: space-between;
+// 	  padding: ${theme.spacing(2)};
+// 	 `
+// );
 
 const CustomizedCard = styled(Card)(
   ({ theme }) => `
-	  height: 100%;
-	  display: grid;
-	  grid-template-columns: repeat(2, 1fr);
-	  grid-auto-rows: minmax(2, 1fr);
-	  grid-template-areas:
-			"img card"
-			"img button";
+  
+    display: flex;
+    flex-direction: column;
 	  align-items:center;
 	  align-content: space-between;
 	  padding: ${theme.spacing(2)};
+    border: 1px solid black;
 	 `
 );
 const CustomizedCardMedia = styled(CardMedia)(
@@ -63,56 +78,66 @@ const GoodItem = ({
   },
 }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  console.log({
+    id,
+    isStoredInFacility,
+    photo,
+    brand,
+    model,
+    haveDiscount,
+    price,
+    color,
+    country,
+    os,
+    memory,
+    type,
+  });
 
   return (
-    <Grid
-      item
-      xs={12}
-      sm={6}
-      md={4}
-      key={id}
-      sx={{
-        maxHeight: '300px',
-        marginBottom: '20px',
-      }}
-    >
-      <CustomizedCard>
-        <CustomizedCardMedia component="img" image={photo} alt="" />
-        <CustomizedCardContent>
-          <Typography variant="h5" component="h4" sx={{ flex: 0 }}>
-            {brand} - {model}
-          </Typography>
-          <Typography>{price} ₴</Typography>
-          <Typography>Color: {color}</Typography>
-          <Typography>Country: {country}</Typography>
-          {memory && <Typography>Memory: {memory} GB</Typography>}
-          {os && <Typography>OS: {os}</Typography>}
-          {type && <Typography>Type: {type}</Typography>}
-        </CustomizedCardContent>
-        <CardActions sx={{ gridArea: 'button' }}>
-          <AppButton
-            btnAction={() => {
-              dispatch(
-                setBasketItem({
-                  id,
-                  isStoredInFacility,
-                  photo,
-                  brand,
-                  model,
-                  haveDiscount,
-                  price,
-                  color,
-                  country,
-                  os,
-                  memory,
-                })
-              );
+    <Grid item xs={6} sm={4} md={3} key={id}>
+      <Card>
+        <CardActionArea
+          sx={{
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+          }}
+          onClick={() => navigate(`/device/${id}`)}
+        >
+          <CardMedia
+            component="img"
+            height="140"
+            image={photo}
+            sx={{
+              backgroundColor: 'white',
+              objectFit: 'contain',
+              '&:hover': {
+                objectFit: 'contain',
+                scale: '1.1',
+              },
+              transition: 'all 0.3s ease',
             }}
+          />
+          <CardContent
+            sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}
           >
-            <AddIcon></AddIcon>
-          </AppButton>
-        </CardActions>
-      </CustomizedCard>
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="p"
+              sx={{ flex: '1 1 100%' }}
+            >
+              {brand} - {model}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {price}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
     </Grid>
   );
 };

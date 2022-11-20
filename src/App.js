@@ -23,17 +23,21 @@ const App = () => {
         ? {
             // palette values for light mode
             primary: {
+              light: teal[900],
               main: teal[200],
+              text: '000',
             },
             divider: teal[200],
             background: {
-              default: grey[400],
+              default: grey[300],
             },
           }
         : {
             // palette values for dark mode
             primary: {
+              light: cyan[100],
               main: cyan[800],
+              text: cyan[100],
             },
             divider: cyan[200],
           }),
@@ -51,13 +55,7 @@ const App = () => {
       >
         <Header />
         {/* <AppPaper /> */}
-        <Box
-          sx={{
-            padding: '60px 0',
-          }}
-        >
-          <Routing />
-        </Box>
+        <Routing />
         <Basket />
       </Box>
     </ThemeProvider>

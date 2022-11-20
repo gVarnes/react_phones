@@ -6,6 +6,8 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: resolve(__dirname, 'build'),
+    //without it we can have an error while we refresh page on dinamic route like id in params
+    publicPath: '/',
     filename: '[name]-[fullhash].js',
     clean: true,
   },

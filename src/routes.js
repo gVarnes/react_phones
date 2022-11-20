@@ -12,6 +12,7 @@ import {
   SHOP_ROUTE,
   BASKET_ROUTE,
 } from './utils/constants';
+import ShopNew from './pages/ShopNew';
 
 export const authRoutes = [
   {
@@ -25,9 +26,13 @@ export const authRoutes = [
 ];
 
 export const publicRoutes = [
+  // {
+  //   path: SHOP_ROUTE,
+  //   Component: Shop,
+  // },
   {
     path: SHOP_ROUTE,
-    Component: Shop,
+    Component: ShopNew,
   },
   {
     path: LOGIN_ROUTE,

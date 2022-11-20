@@ -3,13 +3,17 @@ import AuthContainer from '../Components/AuthContainer';
 import Input from '../Components/Input';
 import AppButton from '../Components/AppButton';
 import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../utils/constants';
+import { userApi } from '../api/userApi';
 
 import { useForm } from 'react-hook-form';
 
-import { Box, Typography, Link as LinkMUI } from '@mui/material';
+import { Box, Typography, Link as LinkMUI, useRadioGroup } from '@mui/material';
 import styled from '@emotion/styled';
 
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+
+import { useDispatch } from 'react-redux';
+import { setIsAuth, setUser } from '../redux/slices/userSlice';
 
 const StyledForm = styled('form')`
   width: 100%;
@@ -21,13 +25,31 @@ const Auth = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
-
   //this variable needs for rendering different forms by condition below
   const isLogin = location.pathname === LOGIN_ROUTE;
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      //if rendered login form it calls login function else registration
+      let response;
+
+      //getting user from response
+      if (isLogin) {
+        response = await userApi.login(data);
+      } else {
+        response = await userApi.registration(data);
+      }
+
+      //change store user on user from response and change isAuth to true
+      dispatch(setUser(response));
+      dispatch(setIsAuth(true));
+      navigate('/');
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -37,7 +59,6 @@ const Auth = () => {
       </Typography>
 
       <StyledForm noValidate onSubmit={handleSubmit(onSubmit)}>
-        <Input {...register('username')} label="User name"></Input>
         <Input {...register('email')} label="Email"></Input>
         <Input
           {...register('password')}

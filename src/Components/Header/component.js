@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Container, Box } from '@mui/material';
-import { ShoppingBasket } from '@mui/icons-material';
+import { ShoppingBasket, WindowRounded } from '@mui/icons-material';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { styled } from '@mui/system';
@@ -13,12 +13,14 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import AppButton from '../AppButton';
 import { useEffect } from 'react';
+import { setIsAuth, setUser } from '../../redux/slices/userSlice';
 
 const CustomizedTypography = styled(Typography)`
   flex-grow: 1;
 `;
 
 const Header = () => {
+  const { isAuth } = useSelector((state) => state.user);
   const { isBasketOpen } = useSelector((state) => state.basket);
   const { mode } = useSelector((state) => state.themeMode);
   const dispatch = useDispatch();
@@ -28,20 +30,40 @@ const Header = () => {
     localStorage.setItem('theme', mode);
   }, [mode]);
 
+  const logout = () => {
+    dispatch(setUser({}));
+    dispatch(setIsAuth(false));
+    navigate('/');
+  };
+  const moveToLogin = () => navigate('/login');
+  const moveToAdmin = () => navigate('/admin');
+  const openBasket = () => dispatch(setIsBasketOpen(!isBasketOpen));
+
   return (
     <AppBar
       position="fixed"
       sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
     >
       <Container>
-        <Toolbar>
+        <Toolbar sx={{ padding: '0' }}>
           <CustomizedTypography variant="h5" component="span">
             <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-              react-phones
+              {window.innerWidth < 600 ? 'React-p' : 'react-phones'}
             </Link>
           </CustomizedTypography>
-          <Box>
-            <AppButton
+          <Box sx={{ display: 'flex', gap: '1rem' }}>
+            {isAuth ? (
+              <>
+                <AppButton btnAction={logout}>Log out</AppButton>
+                {window.innerWidth > 900 && (
+                  <AppButton btnAction={moveToAdmin}>Admin panel</AppButton>
+                )}
+              </>
+            ) : (
+              <AppButton btnAction={moveToLogin}>Log in</AppButton>
+            )}
+          </Box>
+          {/* <AppButton
               color="inherit"
               variant="text"
               btnAction={() => {
@@ -49,18 +71,10 @@ const Header = () => {
               }}
             >
               {mode === 'light' ? <LightModeIcon /> : <DarkModeIcon />}
-            </AppButton>
-            <AppButton
-              color="inherit"
-              variant="text"
-              btnAction={() => {
-                dispatch(setIsBasketOpen(!isBasketOpen));
-              }}
-            >
-              <ShoppingBasket></ShoppingBasket>
-            </AppButton>
-            <AppButton btnAction={() => navigate('/login')}>Login</AppButton>
-          </Box>
+            </AppButton> */}
+          <AppButton color="inherit" variant="text" btnAction={openBasket}>
+            <ShoppingBasket></ShoppingBasket>
+          </AppButton>
         </Toolbar>
       </Container>
     </AppBar>

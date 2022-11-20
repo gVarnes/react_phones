@@ -22,13 +22,18 @@ const initialState = {
     },
   ],
   devices: [],
+  selectedType: {},
 };
 
 export const deviceSlice = createSlice({
   name: 'device',
   initialState,
-  reducers: {},
+  reducers: {
+    setSelectedType: (state, action) => {
+      state.selectedType = action.payload;
+    },
+  },
 });
 
-export const {} = deviceSlice.actions;
+export const { setSelectedType } = deviceSlice.actions;
 export default deviceSlice.reducer;
