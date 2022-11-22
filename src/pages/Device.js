@@ -15,6 +15,8 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/system';
 import Descriptions from '../Components/Descriptions/component';
+import { useEffect } from 'react';
+import { deviceApi } from '../api/deviceApi';
 
 const StyledTypography = styled(Typography)`
   &:not(:last-child) {
@@ -23,8 +25,17 @@ const StyledTypography = styled(Typography)`
 `;
 
 const Device = () => {
+  const [rating, setRating] = useState(0);
+  const [device, setDevice] = useState({});
   const { id } = useParams();
-  const [rating, setRating] = useState(2.5);
+
+  useEffect(() => {
+    deviceApi.getOneDevice(id).then((data) => {
+      setDevice(data);
+      //setting rating from request cause it should be controlled and it doest work with device.rating
+      setRating(data.rating);
+    });
+  }, []);
 
   return (
     <Container>
@@ -49,19 +60,19 @@ const Device = () => {
           <CardMedia
             component="img"
             sx={{ width: '300px', height: '300px', objectFit: 'contain' }}
-            image="https://content1.rozetka.com.ua/goods/images/big/215587210.jpg"
+            image={`http://localhost:3001/public/${device.img}`}
           />
         </Grid>
         <Grid item xs={12} md={6} sx={{ width: '100%' }}>
           <Card>
             <CardContent>
               <StyledTypography component="h3" variant="h3">
-                Name
+                {device.name}
               </StyledTypography>
               <StyledTypography>
                 <Rating value={rating} precision={0.5} readOnly></Rating>
               </StyledTypography>
-              <StyledTypography variant="h5">Price</StyledTypography>
+              <StyledTypography variant="h5">{device.price}</StyledTypography>
             </CardContent>
             <CardActions>
               <AppButton>
@@ -71,7 +82,7 @@ const Device = () => {
           </Card>
         </Grid>
       </Grid>
-      <Descriptions />
+      <Descriptions info={device.info} />
     </Container>
   );
 };
