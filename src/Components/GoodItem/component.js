@@ -80,21 +80,6 @@ const GoodItem = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log({
-    id,
-    isStoredInFacility,
-    photo,
-    brand,
-    model,
-    haveDiscount,
-    price,
-    color,
-    country,
-    os,
-    memory,
-    type,
-  });
-
   return (
     <Grid item xs={6} sm={4} md={3} key={id}>
       <Card>

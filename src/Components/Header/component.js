@@ -33,6 +33,7 @@ const Header = () => {
   const logout = () => {
     dispatch(setUser({}));
     dispatch(setIsAuth(false));
+    localStorage.removeItem('token');
     navigate('/');
   };
   const moveToLogin = () => navigate('/login');

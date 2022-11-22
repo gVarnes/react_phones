@@ -25,6 +25,7 @@ const Auth = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -59,12 +60,8 @@ const Auth = () => {
       </Typography>
 
       <StyledForm noValidate onSubmit={handleSubmit(onSubmit)}>
-        <Input {...register('email')} label="Email"></Input>
-        <Input
-          {...register('password')}
-          label="Password"
-          type="password"
-        ></Input>
+        <Input {...register('email')} label="Email" />
+        <Input {...register('password')} label="Password" type="password" />
         <Box>
           {isLogin ? (
             <Typography marginBottom={1}>

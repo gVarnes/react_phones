@@ -27,7 +27,7 @@ AppButton.propTypes = {
   btnAction: PropTypes.func,
   color: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-  type: PropTypes.oneOf(['submit', 'reset']),
+  type: PropTypes.oneOf(['submit', 'reset', 'button']),
   fullWidth: PropTypes.bool,
 };
 

@@ -13,7 +13,9 @@ export const authHost = axios.create({
 });
 
 //we are getting token from localStorage and using it in interceptor for logged users
-const authInterceptor = (config) =>
-  (config.headers.authorization = `Bearer ${localStorage.getItem('token')}`);
+const authInterceptor = (config) => {
+  config.headers.authorization = `Bearer ${localStorage.getItem('token')}`;
+  return config;
+};
 
 authHost.interceptors.request.use(authInterceptor);
