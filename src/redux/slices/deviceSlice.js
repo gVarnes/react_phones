@@ -20,8 +20,12 @@ export const deviceSlice = createSlice({
     setBrands: (state, action) => {
       state.brands = action.payload;
     },
+    setDevices: (state, action) => {
+      state.devices = action.payload;
+    },
   },
 });
 
-export const { setSelectedType, setTypes, setBrands } = deviceSlice.actions;
+export const { setSelectedType, setTypes, setBrands, setDevices } =
+  deviceSlice.actions;
 export default deviceSlice.reducer;

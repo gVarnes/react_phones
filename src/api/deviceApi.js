@@ -23,8 +23,10 @@ export const deviceApi = {
   },
   getDevices: async () => {
     const { data } = await host.get('device');
+    return data;
   },
   getOneDevice: async (id) => {
     const { data } = await host.get(`device/${id}`);
+    return data;
   },
 };

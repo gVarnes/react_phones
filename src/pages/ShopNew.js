@@ -6,32 +6,38 @@ import { Container } from '@mui/system';
 import { Grid } from '@mui/material';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setBrands, setTypes } from '../redux/slices/deviceSlice';
+import { setBrands, setDevices, setTypes } from '../redux/slices/deviceSlice';
 
 import { deviceApi } from '../api/deviceApi';
 
 const ShopNew = () => {
-  const [cards, setCard] = useState([]);
   const { filterByCondition, sortByCondition } = useSelector(
     (state) => state.filter
   );
+  const { devices } = useSelector((state) => state.device);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch(
-      `https://62bc03efeff39ad5ee1a123a.mockapi.io/watches?${
-        filterByCondition && `filter=${filterByCondition}`
-      }&${sortByCondition && `sortBy=price&order=${sortByCondition}`}`
-    )
-      .then((res) => res.json())
-      .then((items) => {
-        setCard(items);
-      });
+    // fetch(
+    //   `https://62bc03efeff39ad5ee1a123a.mockapi.io/watches?${
+    //     filterByCondition && `filter=${filterByCondition}`
+    //   }&${sortByCondition && `sortBy=price&order=${sortByCondition}`}`
+    // )
+    //   .then((res) => res.json())
+    //   .then((items) => {
+    //     setCard(items);
+    //   });
+
+    deviceApi.getDevices().then((data) => dispatch(setDevices(data)));
 
     //fetching types and adding to the store
     deviceApi.getTypes().then((data) => dispatch(setTypes(data)));
     deviceApi.getBrands().then((data) => dispatch(setBrands(data)));
   }, []);
+
+  useEffect(() => {
+    console.log(devices);
+  }, [devices]);
   return (
     <Container>
       <Grid
@@ -45,8 +51,8 @@ const ShopNew = () => {
         </Grid>
         <Grid item xs={12}>
           <Grid item container spacing={1}>
-            {cards.map((card) => (
-              <GoodItem card={card} key={card.id} />
+            {devices.rows?.map((device) => (
+              <GoodItem {...device} key={device.id} />
             ))}
           </Grid>
         </Grid>

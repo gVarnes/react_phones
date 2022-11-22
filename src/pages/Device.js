@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppButton from '../Components/AppButton';
 import { useParams } from 'react-router-dom';
 
@@ -24,7 +24,7 @@ const StyledTypography = styled(Typography)`
 
 const Device = () => {
   const { id } = useParams();
-  const [rating, setRating] = React.useState(2.5);
+  const [rating, setRating] = useState(2.5);
 
   return (
     <Container>
