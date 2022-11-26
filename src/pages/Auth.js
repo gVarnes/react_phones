@@ -6,8 +6,18 @@ import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../utils/constants';
 import { userApi } from '../api/userApi';
 
 import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { authSchema } from '../utils/validations';
 
-import { Box, Typography, Link as LinkMUI, useRadioGroup } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Link as LinkMUI,
+  Snackbar,
+  IconButton,
+  Alert,
+} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import styled from '@emotion/styled';
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -24,7 +34,10 @@ const Auth = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+    setError,
+  } = useForm({
+    resolver: yupResolver(authSchema),
+  });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -40,8 +53,16 @@ const Auth = () => {
       //getting user from response
       if (isLogin) {
         response = await userApi.login(data);
+        console.log(response);
       } else {
         response = await userApi.registration(data);
+      }
+
+      //chech for errors in response and after that set error message to the "response" field
+      //if its true function should return something in order to not to continue
+      if (response.status === 404) {
+        setError('response', { message: response.data.message });
+        return;
       }
 
       //change store user on user from response and change isAuth to true
@@ -60,8 +81,19 @@ const Auth = () => {
       </Typography>
 
       <StyledForm noValidate onSubmit={handleSubmit(onSubmit)}>
-        <Input {...register('email')} label="Email" />
-        <Input {...register('password')} label="Password" type="password" />
+        <Input
+          {...register('email')}
+          label="Email"
+          error={!!errors.email}
+          helperText={errors?.email?.message}
+        />
+        <Input
+          {...register('password')}
+          label="Password"
+          type="password"
+          error={!!errors.password}
+          helperText={errors?.password?.message}
+        />
         <Box>
           {isLogin ? (
             <Typography marginBottom={1}>
@@ -83,6 +115,27 @@ const Auth = () => {
           </AppButton>
         </Box>
       </StyledForm>
+      <Snackbar
+        open={!!errors?.response}
+        autoHideDuration={6000}
+        onClose={() => {}}
+      >
+        <Alert
+          severity="error"
+          action={
+            <IconButton
+              size="small"
+              aria-label="close"
+              color="primary"
+              // onClick={handleClose}
+            >
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          }
+        >
+          {errors?.response?.message}
+        </Alert>
+      </Snackbar>
     </AuthContainer>
   );
 };

@@ -35,9 +35,6 @@ const ShopNew = () => {
     deviceApi.getBrands().then((data) => dispatch(setBrands(data)));
   }, []);
 
-  useEffect(() => {
-    console.log(devices);
-  }, [devices]);
   return (
     <Container>
       <Grid

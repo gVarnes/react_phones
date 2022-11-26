@@ -16,10 +16,18 @@ export const userApi = {
 
   login: async (request) => {
     //getting data from response
-    const { data } = await host.post('user/login', request);
-    localStorage.setItem('token', data.token);
-    //returning decoded info about user
-    return jwt_decode(data.token);
+    try {
+      const { data } = await host.post('user/login', request);
+      localStorage.setItem('token', data.token);
+      //returning decoded info about user
+      return jwt_decode(data.token);
+    } catch (error) {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        return error.response;
+      }
+    }
   },
   checkAuth: async () => {
     //this login should be reworked in server (instance.addHook does not work)
