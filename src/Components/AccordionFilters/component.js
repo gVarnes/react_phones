@@ -1,18 +1,9 @@
 import React from 'react';
-
-import { useDispatch } from 'react-redux/es/exports';
-import { setFilterByCondition } from '../../redux/slices/filterSlice';
-
 import AppButton from '../AppButton/component';
+
 import { AccordionDetails } from '@mui/material';
 
-const AccordionFilters = ({ filters }) => {
-  const dispatch = useDispatch();
-
-  const filterOnClick = (item) => {
-    dispatch(setFilterByCondition(item));
-  };
-
+const AccordionFilters = ({ filters, selectFilter }) => {
   return (
     <>
       {filters.map((item, index) => {
@@ -20,10 +11,10 @@ const AccordionFilters = ({ filters }) => {
           <AccordionDetails key={index}>
             <AppButton
               btnAction={() => {
-                filterOnClick(item);
+                selectFilter(item);
               }}
             >
-              {item}
+              {item.name}
             </AppButton>
           </AccordionDetails>
         );

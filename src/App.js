@@ -6,7 +6,7 @@ import Header from './Components/Header/component';
 //material ui
 import { Box } from '@mui/system';
 //redux
-import { useSelector } from 'react-redux/es/exports';
+import { useSelector } from 'react-redux';
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 

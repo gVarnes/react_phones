@@ -1,8 +1,5 @@
 import React from 'react';
-
-import { setSortByCondition } from '../../redux/slices/filterSlice';
-import { setIsFilterMenuOpen } from '../../redux/slices/filterMenuSlice';
-import { useDispatch, useSelector } from 'react-redux/es/exports';
+import AccordionFilters from '../AccordionFilters';
 
 import {
   Accordion,
@@ -17,7 +14,8 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import styled from '@emotion/styled';
 
 import AppButton from '../AppButton/component';
-import AccordionFilters from '../AccordionFilters';
+import { setSelectedType } from '../../redux/slices/deviceSlice';
+import { useDispatch, useSelector } from 'react-redux/es/exports';
 
 const CustomizedDrawer = styled(Drawer)`
   .MuiDrawer-paper {
@@ -32,50 +30,16 @@ const CustomizedDrawer = styled(Drawer)`
   }
 `;
 
-const NavForm = ({ brands, colors }) => {
-  const { isFilterMenuOpen } = useSelector((state) => state.filtersMenu);
+const NavForm = ({ isFiltersOpen, handleClose }) => {
+  const { types } = useSelector((state) => state.device);
   const dispatch = useDispatch();
 
-  const sortOnclick = (value) => {
-    dispatch(setSortByCondition(value));
+  const selectType = (type) => {
+    return dispatch(setSelectedType(type));
   };
+
   return (
-    <CustomizedDrawer
-      anchor="left"
-      open={isFilterMenuOpen}
-      onClose={() => dispatch(setIsFilterMenuOpen(false))}
-    >
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<KeyboardArrowDownIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography>Sort by price</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <List sx={{ padding: 0 }}>
-            <ListItem sx={{ paddingLeft: 0 }}>
-              <AppButton
-                btnAction={() => {
-                  sortOnclick('desc');
-                }}
-              >
-                Max price first
-              </AppButton>
-            </ListItem>
-            <ListItem sx={{ paddingLeft: 0 }}>
-              <AppButton
-                btnAction={() => {
-                  sortOnclick('asc');
-                }}
-              >
-                Min price first
-              </AppButton>
-            </ListItem>
-          </List>
-        </AccordionDetails>
-      </Accordion>
+    <CustomizedDrawer anchor="left" open={isFiltersOpen} onClose={handleClose}>
       <Accordion>
         <AccordionSummary
           expandIcon={<KeyboardArrowDownIcon />}
@@ -83,19 +47,13 @@ const NavForm = ({ brands, colors }) => {
           id="panel1a-header"
           sx={{ margin: 0 }}
         >
-          <Typography>Brands</Typography>
+          <Typography>Types</Typography>
         </AccordionSummary>
-        <AccordionFilters filterName="Brands" filters={brands} />
-      </Accordion>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<KeyboardArrowDownIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header3"
-        >
-          <Typography>Colors</Typography>
-        </AccordionSummary>
-        <AccordionFilters filterName="Colors" filters={colors} />
+        <AccordionFilters
+          filterName="Types"
+          filters={types}
+          selectFilter={selectType}
+        />
       </Accordion>
     </CustomizedDrawer>
   );

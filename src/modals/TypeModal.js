@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import AppButton from '../Components/AppButton';
 import Input from '../Components/Input';
+
 import { Box, Modal, Typography } from '@mui/material';
 import { useTheme } from '@mui/material';
+
 import { deviceApi } from '../api/deviceApi';
 
 const TypeModal = ({ open, handleClose }) => {

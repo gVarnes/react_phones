@@ -20,15 +20,19 @@ const CustomizedTypography = styled(Typography)`
 `;
 
 const Header = () => {
-  const { isAuth } = useSelector((state) => state.user);
+  const { isAuth, user } = useSelector((state) => state.user);
   const { isBasketOpen } = useSelector((state) => state.basket);
   const { mode } = useSelector((state) => state.themeMode);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.setItem('theme', mode);
-  }, [mode]);
+    //a simple chacking is logged user or not
+    // it should be refactored
+    if (localStorage.getItem('token')) {
+      dispatch(setIsAuth(true));
+    }
+  }, []);
 
   const logout = () => {
     dispatch(setUser({}));
@@ -74,7 +78,7 @@ const Header = () => {
               {mode === 'light' ? <LightModeIcon /> : <DarkModeIcon />}
             </AppButton> */}
           <AppButton color="inherit" variant="text" btnAction={openBasket}>
-            <ShoppingBasket></ShoppingBasket>
+            <ShoppingBasket />
           </AppButton>
         </Toolbar>
       </Container>

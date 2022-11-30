@@ -58,7 +58,7 @@ const Basket = () => {
         ) : (
           <Paper>
             {basket.map((card) => {
-              return <BasketItem item={card} key={card.id}></BasketItem>;
+              return <BasketItem {...card} key={card.id}></BasketItem>;
             })}
             <Divider />
             <ListItem>Total price: {totalPrice}</ListItem>

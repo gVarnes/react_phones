@@ -1,8 +1,8 @@
 import Admin from './pages/Admin';
 import Basket from './pages/Basket';
 import Device from './pages/Device';
-import Shop from './pages/Shop';
 import Auth from './pages/Auth';
+import Shop from './pages/Shop';
 
 import {
   ADMIN_ROUTE,
@@ -12,7 +12,6 @@ import {
   SHOP_ROUTE,
   BASKET_ROUTE,
 } from './utils/constants';
-import ShopNew from './pages/ShopNew';
 
 export const authRoutes = [
   {
@@ -26,13 +25,9 @@ export const authRoutes = [
 ];
 
 export const publicRoutes = [
-  // {
-  //   path: SHOP_ROUTE,
-  //   Component: Shop,
-  // },
   {
     path: SHOP_ROUTE,
-    Component: ShopNew,
+    Component: Shop,
   },
   {
     path: LOGIN_ROUTE,

@@ -1,3 +1,4 @@
+import { DEVICES_LIMIT } from '../utils/constants';
 import { authHost, host } from './apiConfig';
 
 export const deviceApi = {
@@ -21,8 +22,10 @@ export const deviceApi = {
     const { data } = await authHost.post('device', device);
     return data;
   },
-  getDevices: async () => {
-    const { data } = await host.get('device');
+  getDevices: async (typeId, brandId, page, limit = DEVICES_LIMIT) => {
+    const { data } = await host.get('device', {
+      params: { typeId, brandId, page, limit },
+    });
     return data;
   },
   getOneDevice: async (id) => {

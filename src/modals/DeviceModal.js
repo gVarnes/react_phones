@@ -8,18 +8,21 @@ import {
   MenuItem,
   List,
   ListItem,
+  FormHelperText,
 } from '@mui/material';
 import { Box } from '@mui/system';
 import { useTheme } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { deviceSchema } from '../utils/validations';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { setBrands, setTypes } from '../redux/slices/deviceSlice';
 
 import AppButton from '../Components/AppButton';
-import Input from '../Components/Input/component';
+import Input from '../Components/Input';
 import { deviceApi } from '../api/deviceApi';
 
 const DeviceModal = ({ open, handleClose }) => {
@@ -29,7 +32,9 @@ const DeviceModal = ({ open, handleClose }) => {
     formState: { errors },
     control,
     reset,
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(deviceSchema),
+  });
   const { fields, append, remove } = useFieldArray({
     control, // control props comes from useForm (optional: if you are using FormContext)
     name: 'info', // unique name for your Field Array
@@ -58,10 +63,10 @@ const DeviceModal = ({ open, handleClose }) => {
         body.append(item[0], item[1]);
       }
     });
-
-    const response = await deviceApi.createDevice(body);
-    reset();
-    handleClose();
+    console.log(data);
+    // const response = await deviceApi.createDevice(body);
+    // reset();
+    // handleClose();
   };
 
   return (
@@ -99,7 +104,7 @@ const DeviceModal = ({ open, handleClose }) => {
           noValidate
           onSubmit={handleSubmit(onSubmit)}
         >
-          <FormControl variant="filled">
+          <FormControl variant="filled" error={!!errors.typeId}>
             <InputLabel id="type-select-label">Choose type</InputLabel>
             <Controller
               control={control}
@@ -126,8 +131,9 @@ const DeviceModal = ({ open, handleClose }) => {
                 </Select>
               )}
             />
+            <FormHelperText error>{errors?.typeId?.message}</FormHelperText>
           </FormControl>
-          <FormControl variant="filled">
+          <FormControl variant="filled" error={!!errors.brandId}>
             <InputLabel id="brand-select-label">Chose brand</InputLabel>
             <Controller
               control={control}
@@ -154,20 +160,24 @@ const DeviceModal = ({ open, handleClose }) => {
                 </Select>
               )}
             />
+            <FormHelperText error>{errors?.typeId?.message}</FormHelperText>
           </FormControl>
           <Input
             {...register('name')}
             label=""
             placeholder="Enter the name of the device"
+            error={!!errors.name}
+            helperText={errors?.name?.message}
           />
           <Input
             {...register('price')}
             label=""
             type="number"
             placeholder="Enter the price of the device"
+            error={!!errors.price}
+            helperText={errors?.price?.message}
           />
           <Input {...register('img')} label="" type="file" />
-
           <AppButton
             type="button"
             btnAction={() => append()}

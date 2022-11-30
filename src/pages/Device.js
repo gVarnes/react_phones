@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AppButton from '../Components/AppButton';
+import Descriptions from '../Components/Descriptions';
+
+import { deviceApi } from '../api/deviceApi';
+
 import { useParams } from 'react-router-dom';
 
 import { Container } from '@mui/system';
@@ -14,9 +18,9 @@ import {
   Rating,
 } from '@mui/material';
 import { styled } from '@mui/system';
-import Descriptions from '../Components/Descriptions/component';
-import { useEffect } from 'react';
-import { deviceApi } from '../api/deviceApi';
+
+import { useDispatch } from 'react-redux';
+import { setBasketItem } from '../redux/slices/basketSlice';
 
 const StyledTypography = styled(Typography)`
   &:not(:last-child) {
@@ -28,6 +32,7 @@ const Device = () => {
   const [rating, setRating] = useState(0);
   const [device, setDevice] = useState({});
   const { id } = useParams();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     deviceApi.getOneDevice(id).then((data) => {
@@ -36,6 +41,10 @@ const Device = () => {
       setRating(data.rating);
     });
   }, []);
+
+  const addToBasket = () => {
+    dispatch(setBasketItem(device));
+  };
 
   return (
     <Container>
@@ -74,7 +83,7 @@ const Device = () => {
               </StyledTypography>
               <StyledTypography variant="h5">{device.price}</StyledTypography>
             </CardContent>
-            <CardActions>
+            <CardActions onClick={addToBasket}>
               <AppButton>
                 <AddIcon />
               </AppButton>

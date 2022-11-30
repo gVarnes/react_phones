@@ -10,6 +10,11 @@ const TypeBar = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const { types, selectedType } = useSelector((state) => state.device);
+
+  const selectType = (type) => {
+    return dispatch(setSelectedType(type));
+  };
+
   return (
     <List sx={{ color: theme.palette.primary.text }}>
       {types.map((type) => (
@@ -25,9 +30,7 @@ const TypeBar = () => {
               },
             }}
             selected={type.id === selectedType.id}
-            onClick={() => {
-              dispatch(setSelectedType(type));
-            }}
+            onClick={() => selectType(type)}
           >
             <ListItemText primary={type.name} />
           </ListItemButton>

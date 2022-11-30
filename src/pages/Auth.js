@@ -35,6 +35,7 @@ const Auth = () => {
     handleSubmit,
     formState: { errors },
     setError,
+    clearErrors,
   } = useForm({
     resolver: yupResolver(authSchema),
   });
@@ -73,6 +74,8 @@ const Auth = () => {
       console.log(e);
     }
   };
+
+  const handleClose = () => clearErrors('response');
 
   return (
     <AuthContainer>
@@ -115,11 +118,7 @@ const Auth = () => {
           </AppButton>
         </Box>
       </StyledForm>
-      <Snackbar
-        open={!!errors?.response}
-        autoHideDuration={6000}
-        onClose={() => {}}
-      >
+      <Snackbar open={!!errors?.response} autoHideDuration={6000}>
         <Alert
           severity="error"
           action={
@@ -127,7 +126,7 @@ const Auth = () => {
               size="small"
               aria-label="close"
               color="primary"
-              // onClick={handleClose}
+              onClick={handleClose}
             >
               <CloseIcon fontSize="small" />
             </IconButton>
